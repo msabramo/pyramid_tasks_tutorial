@@ -26,6 +26,19 @@ def list_view(request):
     tasks = [dict(id=row[0], name=row[1]) for row in rs.fetchall()]
     return {'tasks': tasks}
 
+@view_config(route_name='new', renderer='new.mako')
+def new_view(request):
+    if request.method == 'POST':
+        if request.POST.get('name'):
+            request.db.execute('insert into tasks (name, closed) values (?, ?)',
+                               [request.POST['name'], 0])
+            request.db.commit()
+            request.session.flash('New task was successfully added!')
+            return HTTPFound(location=request.route_url('list'))
+        else:
+            request.session.flash('Please enter a name for the task!')
+    return {}
+
 @subscriber(ApplicationCreated)
 def application_created_subscriber(event):
     log.warn('Initializing database...')
