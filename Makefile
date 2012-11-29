@@ -4,7 +4,10 @@ WGET = wget
 PYTHON_VERSION := $(shell python -V 2>&1)
 BOOTSTRAP_PY_URL = http://svn.zope.org/*checkout*/zc.buildout/branches/2/bootstrap/bootstrap.py
 
-bin/pcreate: bin/buildout buildout.cfg
+run: bin/python
+	bin/python tasks.py
+
+bin/python: bin/buildout buildout.cfg
 	if [[ "$(PYTHON_VERSION)" == Python\ 3* ]]; then echo "*** Python 3 ***"; bin/buildout -c buildout-py3.cfg; else echo "*** Python 2 ***"; bin/buildout; fi
 
 run-buildout: bin/buildout buildout.cfg
