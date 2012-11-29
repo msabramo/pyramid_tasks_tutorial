@@ -47,6 +47,11 @@ def close_view(request):
     request.session.flash('Task was successfully closed!')
     return HTTPFound(location=request.route_url('list'))
 
+@view_config(context='pyramid.exceptions.NotFound',
+             renderer='notfound.mako')
+def notfound_view(self):
+    return {}
+
 @subscriber(ApplicationCreated)
 def application_created_subscriber(event):
     log.warn('Initializing database...')
