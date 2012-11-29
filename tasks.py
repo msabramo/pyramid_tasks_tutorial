@@ -84,6 +84,10 @@ if __name__ == '__main__':
     session_factory = UnencryptedCookieSessionFactoryConfig('itsaseekreet')
     # configuration setup
     config = Configurator(settings=settings, session_factory=session_factory)
+    # routes setup
+    config.add_route('list', '/')
+    config.add_route('new', '/new')
+    config.add_route('close', '/close/{id}')
     # scan for @view_config and @subscriber decorators
     config.scan()
     # serve app
