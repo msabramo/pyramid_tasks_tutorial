@@ -39,6 +39,14 @@ def new_view(request):
             request.session.flash('Please enter a name for the task!')
     return {}
 
+@view_config(route_name='close')
+def close_view(request):
+    task_id = int(request.matchdict['id'])
+    request.db.execute("update tasks set closed = ? where id = ?", (1, task_id))
+    request.db.commit()
+    request.session.flash('Task was successfully closed!')
+    return HTTPFound(location=request.route_url('list'))
+
 @subscriber(ApplicationCreated)
 def application_created_subscriber(event):
     log.warn('Initializing database...')
