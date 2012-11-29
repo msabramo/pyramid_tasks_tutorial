@@ -89,6 +89,8 @@ if __name__ == '__main__':
     config.add_route('list', '/')
     config.add_route('new', '/new')
     config.add_route('close', '/close/{id}')
+    # static view setup
+    config.add_static_view('static', os.path.join(here, 'static'))
     # scan for @view_config and @subscriber decorators
     config.scan()
     # serve app
