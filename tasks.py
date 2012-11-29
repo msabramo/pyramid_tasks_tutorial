@@ -20,6 +20,12 @@ log = logging.getLogger(__file__)
 here = os.path.dirname(os.path.abspath(__file__))
 
 
+@view_config(route_name='list', renderer='list.mako')
+def list_view(request):
+    rs = request.db.execute("select id, name from tasks where closed = 0")
+    tasks = [dict(id=row[0], name=row[1]) for row in rs.fetchall()]
+    return {'tasks': tasks}
+
 @subscriber(ApplicationCreated)
 def application_created_subscriber(event):
     log.warn('Initializing database...')
