@@ -3,6 +3,11 @@ import logging
 
 from pyramid.config import Configurator
 from pyramid.session import UnencryptedCookieSessionFactoryConfig
+from pyramid.events import NewRequest
+from pyramid.events import subscriber
+from pyramid.events import ApplicationCreated
+
+import sqlite3
 
 from wsgiref.simple_server import make_server
 
