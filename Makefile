@@ -17,4 +17,4 @@ bootstrap.py:
 	$(WGET) -O bootstrap.py $(BOOTSTRAP_PY_URL)
 
 clean:
-	$(RM) -r bin bootstrap.py develop-eggs parts var .installed.cfg
+	$(RM) -r bin bootstrap.py develop-eggs eggs parts tasks.db var .installed.cfg
